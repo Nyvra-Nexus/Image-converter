@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Converter</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Image Converter</h1>
+
+    <input type="file" id="imageInput" accept="image/*" multiple />
+
+    <select id="formatSelect">
+      <option value="webp">WebP</option>
+      <option value="svg">SVG</option>
+      <option value="jpeg">JPEG</option>
+      <option value="png">PNG</option>
+    </select>
+
+    <div class="compression">
+      <input type="checkbox" id="enableCompression" checked="true" />
+      <label for="enableCompression">Enable Compression</label>
+    </div>
+
+    <button id="convertBtn">Convert</button>
+
+    <progress
+      id="progressBar"
+      value="0"
+      max="100"
+      style="width: 100%; margin-top: 10px; display: none"
+    ></progress>
+
+    <ul id="downloadList"></ul>
+    <button id="downloadAllButton" style="display: none">Download All</button>
+
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.js"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvg@4.0.0/dist/browser/canvg.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>

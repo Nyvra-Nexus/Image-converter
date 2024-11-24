@@ -1,0 +1,78 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 10px;
+    width: 250px;
+    background-color: antiquewhite;
+}
+
+h1 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+input,
+select,
+button,
+progress {
+    margin: 10px 0;
+    width: 100%;
+}
+
+ul {
+    list-style: none;
+    padding-left: 0%;
+}
+
+a {
+    margin: 5px 0;
+    border: 1px black solid;
+    text-decoration: none;
+    color: black;
+    padding: 10px;
+    display: inline-block;
+    border-radius: 5px;
+}
+
+button {
+    background: #007bff;
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 12px;
+    font-size: medium;
+    border-radius: 5px;
+}
+
+select {
+    padding: 12px;
+    border-radius: 5px;
+}
+
+.compression {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: start;
+    align-items: center;
+}
+
+.compression input {
+    width: fit-content;
+}
+
+progress {
+    height: 20px;
+    appearance: none;
+}
+
+progress::-webkit-progress-bar {
+    background-color: #f3f3f3;
+    border-radius: 5px;
+}
+
+progress::-webkit-progress-value {
+    background-color: #007bff;
+    border-radius: 5px;
+}
