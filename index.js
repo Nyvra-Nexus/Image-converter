@@ -1,4 +1,3 @@
-// Get DOM elements
 const imageInput = document.getElementById('imageInput');
 const formatSelect = document.getElementById('formatSelect');
 const convertBtn = document.getElementById('convertBtn');
@@ -7,7 +6,6 @@ const compression = document.getElementById('enableCompression');
 const progressBar = document.getElementById('progressBar');
 const downloadAllButton = document.getElementById('downloadAllButton');
 
-// Function to compress image
 async function compressImage(file) {
     const options = {
         maxSizeMB: 1, // Maximum file size in MB
@@ -26,7 +24,19 @@ async function compressImage(file) {
     }
 }
 
-// Function to convert image
+function canvasToSVG(canvas) {
+    const dataURL = canvas.toDataURL('image/png');  // Convert canvas to PNG first
+
+    // Generate a basic SVG structure embedding the PNG as base64
+    const svgHeader = '<?xml version="1.0" encoding="UTF-8"?>\n' +
+        '<svg xmlns="http://www.w3.org/2000/svg" width="' + canvas.width + '" height="' + canvas.height + '">\n' +
+        '<image href="' + dataURL + '" width="' + canvas.width + '" height="' + canvas.height + '" />\n';
+    const svgFooter = '</svg>';
+
+    return svgHeader + svgFooter;
+}
+
+
 async function convertImage(file, format, enableCompression) {
     if (enableCompression) {
         file = await compressImage(file); // Compress the image before conversion
@@ -47,13 +57,12 @@ async function convertImage(file, format, enableCompression) {
                 ctx.drawImage(img, 0, 0);
 
                 if (format === 'svg') {
-                    const svgString = await canvg.Canvg.from(ctx, canvas).getSvg();
+                    const svgString = canvasToSVG(canvas);
+                    // const svgString = await canvg.Canvg.from(ctx, canvas).getSvg();
                     const blob = new Blob([svgString], { type: 'image/svg+xml' });
-                    progressBar.value = 100;
                     resolve(blob);
                 } else {
                     canvas.toBlob((blob) => {
-                        progressBar.value = 100;
                         resolve(blob);
                     }, `image/${format}`);
                 }
@@ -75,7 +84,6 @@ function getFileNameWithoutExtension(fileName) {
     return fileName.substring(0, lastDotIndex);
 }
 
-// Handle Convert Button Click
 convertBtn.addEventListener('click', async () => {
     const files = imageInput.files;
     const format = formatSelect.value;
@@ -94,6 +102,7 @@ convertBtn.addEventListener('click', async () => {
 
         for (let i = 0; i < files.length; i++) {
             const name = getFileNameWithoutExtension(files[i].name);
+
             const blob = await convertImage(files[i], format, enableCompression);
             const url = URL.createObjectURL(blob);
             convertedFiles.push({ name: `${name}.${format}`, blob });
